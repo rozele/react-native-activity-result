@@ -104,6 +104,11 @@ public class ActivityResultModule extends ReactContextBaseJavaModule implements 
   @Override
   public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
       Promise promise = mPromises.get(requestCode);
+      if (resultCode != Activity.RESULT_OK){
+        promise.resolve(null);
+        return;
+      }
+
       if (promise != null) {
           WritableMap result = new WritableNativeMap();
           result.putInt("resultCode", resultCode);
