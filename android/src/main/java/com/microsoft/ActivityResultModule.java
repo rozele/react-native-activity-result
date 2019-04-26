@@ -107,7 +107,9 @@ public class ActivityResultModule extends ReactContextBaseJavaModule implements 
       if (promise != null) {
           WritableMap result = new WritableNativeMap();
           result.putInt("resultCode", resultCode);
-          result.putMap("data", Arguments.makeNativeMap(data.getExtras()));
+          if (data != null) {
+            result.putMap("data", Arguments.makeNativeMap(data.getExtras()));
+          }
           promise.resolve(result);
       }
   }
